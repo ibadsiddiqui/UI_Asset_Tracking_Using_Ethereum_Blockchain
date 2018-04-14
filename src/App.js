@@ -4,6 +4,7 @@ import './App.css';
 import AssetForm from './component/createAssetForm';
 import GetAsset from './component/getAssetComponent';
 import AssetDetails from './component/getAssetDetails';
+import GetCurrentOwner from './component/getCurrentOwner';
 
 import Automobile_Contract from './auto_mobile';
 import web3 from './web3';
@@ -27,8 +28,8 @@ class App extends Component {
 
         <main className = "row">
           <GetAsset/>
-          
           <AssetDetails/>
+          <GetCurrentOwner/>
         </main>
 
 
