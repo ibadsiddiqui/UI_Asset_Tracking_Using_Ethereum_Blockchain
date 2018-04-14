@@ -4,17 +4,19 @@ import '../App.css';
 import Automobile_Contract from '../auto_mobile';
 import web3 from '../web3';
 
-export default class AssetDetails extends Component {
+export default class GetCurrentOwner extends Component {
+    state = {}
     constructor(){
         super();
-        this.state = {};
-        this.getCurrentOnwer = this.getCurrentOwner.bind(this);
+        this.getCurrentOwner = this.getCurrentOwner.bind(this);
     }
 
-    async getSpecificAsset() {
-        let specificAsset = {};
-        // const {searchDetails} = this.state
-        await Automobile_Contract.methods.getSpecificCar( parseInt(this.state.searchDetails)).call().then(console.log)
+    async getCurrentOwner(e) {
+        e.preventDefault();
+        const {VINNumber} = this.state;
+
+        await Automobile_Contract.methods.getCurrentOwnerOfAsset(VINNumber).call().then(console.log);
+    
     }
 
     render() {
@@ -22,9 +24,9 @@ export default class AssetDetails extends Component {
             <div className="col">
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Get Details Of Asset {this.state.manufacturer_name}</h5>
-                        <input type="text" name="detais" className="form-control" onChange={(e) => this.setState({searchDetails: e.target.value})}/>                
-                        <button onClick={this.getSpecificAsset} className="btn btn-primary">Submit</button>
+                        <h5 className="card-title">Get Details Of Asset: {this.state.VINNumber}</h5>
+                        <input type="text" name="detais" className="form-control" onChange={(e) => this.setState({VINNumber: e.target.value})}/>                
+                        <button onClick={this.getCurrentOwner} className="btn btn-primary">Submit</button>
                         {/* <p>{this.state.list_of_asset[0]}</p> */}
                     </div>
                 </div>
