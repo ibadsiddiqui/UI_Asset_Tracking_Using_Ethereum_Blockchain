@@ -15,8 +15,13 @@ export default class GetCurrentOwner extends Component {
         e.preventDefault();
         const {VINNumber} = this.state;
 
-        await Automobile_Contract.methods.getCurrentOwnerOfAsset(VINNumber).call().then(console.log);
-    
+        await Automobile_Contract.methods.getCurrentOwnerOfAsset(VINNumber).call()
+            .then(result => {
+                this.setState({
+                    OwnerName: result[0],
+                    OwnerLocation: result[1]
+                })
+            });    
     }
 
     render() {
@@ -27,7 +32,19 @@ export default class GetCurrentOwner extends Component {
                         <h5 className="card-title">Get Details Of Asset: {this.state.VINNumber}</h5>
                         <input type="text" name="detais" className="form-control" onChange={(e) => this.setState({VINNumber: e.target.value})}/>                
                         <button onClick={this.getCurrentOwner} className="btn btn-primary">Submit</button>
-                        {/* <p>{this.state.list_of_asset[0]}</p> */}
+                        <h6>
+                            Current Owner: 
+                            <span>
+                                {this.state.OwnerName}
+                            </span>
+                        </h6> 
+                        <h6>
+                            Current Owner's Location: 
+                            <span>
+                                {this.state.OwnerLocation}
+                            </span>
+                        </h6> 
+
                     </div>
                 </div>
             </div>
