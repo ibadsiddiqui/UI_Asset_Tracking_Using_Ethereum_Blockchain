@@ -27,8 +27,7 @@ export default class GetAsset extends Component {
     }
 
     async getAsset(e){
-        // e.preventDefault();
-        let assets = [];
+        e.preventDefault();
         await Automobile_Contract.methods.getListOfAssetsOwnedByManufacturer().call()
           .then( (result) =>{
             this.setState({
