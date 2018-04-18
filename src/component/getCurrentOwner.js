@@ -15,7 +15,7 @@ export default class GetCurrentOwner extends Component {
         e.preventDefault();
         const {VINNumber} = this.state;
 
-        await Automobile_Contract.methods.getCurrentOwnerOfAsset(VINNumber).call()
+        await Automobile_Contract.methods.getCurrentOwnerOfAsset(parseInt(VINNumber)).call()
             .then(result => {
                 this.setState({
                     OwnerName: result[0],
