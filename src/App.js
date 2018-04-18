@@ -37,9 +37,9 @@ class App extends Component {
 
     console.log('Transfering asset...')
     await Automobile_Contract.methods.
-      transferToOwner(assetSenderAddress, assetRecieverAddress, assetRecieverName, parseInt(assetVIN), assetRecievers_Location)
+      transferToOwner(assetSenderAddress.toString(), assetRecieverAddress.toString(), assetRecieverName, parseInt(assetVIN), assetRecievers_Location)
       .send({
-        from: assetSenderAddress,
+        from: assetSenderAddress.toString(),
         gas: '3000000'
       }).then(console.log);
     console.log('Asset transfer complete!')
@@ -83,8 +83,8 @@ class App extends Component {
                   <input type="text" name="color" className="form-control" onChange={(e) => this.setState({assetSenderAddress: e.target.value})}/>
                 </div>
                 <div className="col">
-                  <label htmlFor="enginetype">Enter Asset VIN:</label>
-                  <input type="text" name="enginetype" className="form-control" onChange={(e) => this.setState({assetVIN: e.target.value})}/>
+                  <label htmlFor="AssetVIN">Enter Asset VIN:</label>
+                  <input type="text" name="AssetVIN" className="form-control" onChange={(e) => this.setState({assetVIN: e.target.value})}/>
                 </div>
                 <div className="col">
                   <label htmlFor="location">Location to be transfered:</label>
