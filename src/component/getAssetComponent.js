@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import '../App.css';
 
+// component
+import PreviousOwners from './getPreviousOwner';
+
+// contract things
 import Automobile_Contract from '../auto_mobile';
 import web3 from '../web3';
 
@@ -41,7 +45,7 @@ export default class GetAsset extends Component {
         const list = list_of_asset.map((value) => <li className="list-group-item" key={value.toString()}>{value}</li>)
         return (
             <div className="col">
-                <div className="card">
+                <div className="card difference">
                     <div className="card-body">
                         <h5 className="card-title">Assets Manufactured By {this.state.manufacturer_name}</h5>
                         <button onClick={this.getAsset} className="btn btn-primary">Submit</button>
@@ -50,6 +54,7 @@ export default class GetAsset extends Component {
                         </ul>
                     </div>
                 </div>
+                <PreviousOwners/>
             </div>
         )
     }
