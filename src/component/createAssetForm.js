@@ -26,12 +26,37 @@ class AssetForm extends Component {
     async submitAsset(e){
         e.preventDefault();
         const {VIN, color, engineType, location,date} = this.state;
-        console.log('commiting transaction')
-        await Automobile_Contract.methods.createAsset(VIN, color, engineType, location, date).send({
-          from: accounts[0],
-          gas: '3000000'
-        })
-        console.log('transaction completed');
+        let assetChecker = false;
+        
+        const listOfCars = await Automobile_Contract.methods.getListOfAssetsOwnedByManufacturer().call();
+        
+        for (var i = 0; i < 5; i++) {
+            console.log("checking if the asset already exist or not...");
+            if(listOfCars[i] == VIN ){
+                assetChecker = true;
+            }
+        }
+        if(assetChecker){
+            alert('Asset Already there');
+            return;
+        }
+        else{
+            
+            if(VIN !== "" && color !== "" && engineType !== "" && location !== "" && date !== ""){
+                
+                alert('please enter data in the missing fields')                
+                
+            } else{
+                alert ("New asset");
+                console.log('commiting transaction');
+                await Automobile_Contract.methods.createAsset(VIN, color, engineType, location, date).send({
+                    from: accounts[0],
+                    gas: '3000000'
+                })
+                console.log('transaction completed');
+            }
+        }
+
     }
 
     render(){
