@@ -1,24 +1,38 @@
+// get the react components classes
 import React, { Component } from 'react';
 import '../App.css';
+
+// imports the contract address and ABI 
 import Automobile_Contract from '../auto_mobile';
+// access the web3 materials for accounts and others
 import web3 from '../web3';
 
+// for saving the list of accounts from web3
 let accounts;
 
 class AssetForm extends Component {
     constructor(){
         super();
 
+        // state of class
         this.state = {};
+
+        // binds the function to submit button for creating asset
         this.submitAsset = this.submitAsset.bind(this);
     }
 
     async componentDidMount(){
+
+        // gets the details of the manufacturer (the one who deployed the contract) 
         const manufacturer_details = await Automobile_Contract.methods.getManufacturerName().call();
+        
+        // updates the state
         this.setState({
           manufacturer_name : manufacturer_details[0],
           manufacturer_origin : manufacturer_details[1],
         });
+
+        // gets the accounts list using web3
         accounts = await web3.eth.getAccounts();
         console.log(accounts);
     }
