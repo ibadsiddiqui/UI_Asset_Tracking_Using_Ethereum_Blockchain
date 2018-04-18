@@ -1,25 +1,36 @@
+// import react component classes
 import React, { Component } from 'react';
 import './css/getAssetDetails.css';
 
-
+// contract things
 import Automobile_Contract from '../auto_mobile';
 import web3 from '../web3';
 
 export default class AssetDetails extends Component {
     constructor(){
         super();
+
+        // defines the state for class        
         this.state = {
             searchDetails:'',
             assetDetails:[]
         };
+
+        // binds the function to the submit button        
         this.getSpecificAsset = this.getSpecificAsset.bind(this);
     }
 
     async getSpecificAsset(e) {
         e.preventDefault();
+
+        // deconstructs the state for searchDetails
         const {searchDetails} = this.state;
+
+        // gets the specific asset required
         await Automobile_Contract.methods.getSpecificCar( parseInt(searchDetails)).call()
             .then( (result) => {
+                
+                //updates the result in state
                 this.setState({
                     assetDetails: result
                 })
@@ -28,7 +39,9 @@ export default class AssetDetails extends Component {
     }
 
     render() {
+        // deconstructs the state for asset details
         const {assetDetails} = this.state;
+
         return (
             <div className="col">
                 <div className="card">
