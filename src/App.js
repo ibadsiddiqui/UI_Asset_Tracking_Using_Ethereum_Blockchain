@@ -1,21 +1,26 @@
+// import react components
 import React, { Component } from 'react';
 import './App.css';
 
-// components
+// components added to the site
 import AssetForm from './component/createAssetForm';
 import GetAsset from './component/getAssetComponent';
 import AssetDetails from './component/getAssetDetails';
 import GetCurrentOwner from './component/getCurrentOwner';
 
 
+// imports the contract's ABI and address
 import Automobile_Contract from './auto_mobile';
+
+// accesses the web3 providers and accounts
 import web3 from './web3';
 
 
-// let assets
 class App extends Component {
   constructor(){
     super();
+
+    // defines the states required for the class to change data on the contract
     this.state = {
       assetSenderAddress: '',
       assetRecieverAddress: '',
@@ -23,10 +28,14 @@ class App extends Component {
       assetVIN:'',
       assetRecievers_Location:''
     };
+
+    // binds the function of the submit button
     this.submitAsset = this.submitAsset.bind(this)
   }
 
+  // function for the submit button
   async submitAsset() {
+    // decontructs the values from the state of the class
     const {
       assetRecieverName, 
       assetRecieverAddress, 
@@ -35,6 +44,7 @@ class App extends Component {
       assetVIN
     } = this.state;
 
+    // transfers the asset to other owner
     console.log('Transfering asset...')
     await Automobile_Contract.methods.
       transferToOwner(assetSenderAddress.toString(), assetRecieverAddress.toString(), assetRecieverName, parseInt(assetVIN), assetRecievers_Location)
