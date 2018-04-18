@@ -48,26 +48,32 @@ class App extends Component {
     let assetChecker = false;    
     const listOfCars = await Automobile_Contract.methods.getListOfAssetsOwnedByManufacturer().call();
     
+    // see if the asset is there or not
     for (var i = 0; i < 5; i++) {
         console.log("checking if the asset already exist or not...");
         if(listOfCars[i] == assetVIN ){
             assetChecker = true;
         }
     }
+
+    // if it does not exist then quit
     if(!assetChecker){
         alert('Sorry, The asset does not exist');
         return;
     } else{
 
-      // transfers the asset to other owner
+      // transfer the asset to other owner
       console.log('Transfering asset...')
+
+      // wait for the transaction to be completed
       await Automobile_Contract.methods.
         transferToOwner(assetSenderAddress.toString(), assetRecieverAddress.toString(), assetRecieverName, parseInt(assetVIN), assetRecievers_Location)
         .send({
           from: assetSenderAddress.toString(),
           gas: '3000000'
         }).then(console.log);
-      console.log('Asset transfer complete!')
+      
+        console.log('Asset transfer complete!')
 
     }
     
