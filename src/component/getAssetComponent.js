@@ -70,7 +70,7 @@ export default class GetAsset extends Component {
                         <h5 className="card-title">Assets Manufactured By {this.state.manufacturer_name}</h5>
                         <button onClick={this.getAsset} className="btn btn-primary">Submit</button>
                         <ul className="list-group">
-                        {list}
+                            {list}
                         </ul>
                     </div>
                 </div>
